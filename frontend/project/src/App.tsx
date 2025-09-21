@@ -3,6 +3,7 @@ import HomePage from './components/HomePage';
 import UploadForm from './components/UploadForm';
 import AnalysisResult from './components/AnalysisResult';
 import Footer from './components/Footer';
+import ThemeToggle from './components/ThemeToggle';
 
 export interface SoilAnalysis {
   dominantColor: string;
@@ -41,7 +42,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-amber-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-amber-50 dark:from-gray-900 dark:to-gray-800 flex flex-col transition-colors duration-300">
+      <ThemeToggle />
       <main className="flex-1">
         {currentPage === 'home' && (
           <HomePage onStartAnalysis={handleStartAnalysis} />

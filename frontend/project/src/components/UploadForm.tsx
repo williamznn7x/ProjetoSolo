@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Upload, ArrowLeft, Image, AlertCircle } from 'lucide-react';
-import { analyzeSoilAPI } from '../utils/soilAnalyzer';
 import type { SoilAnalysis } from '../App';
+import { analyzeSoilAPI } from '../utils/soilAnalyzer';
 
 interface UploadFormProps {
   onImageUploaded: (imageUrl: string, analysis: SoilAnalysis) => void;
@@ -32,7 +32,6 @@ const UploadForm: React.FC<UploadFormProps> = ({ onImageUploaded, onBack }) => {
     setIsAnalyzing(true);
 
     try {
-      // Envia a imagem para o backend
       const analysis = await analyzeSoilAPI(file);
       const imageUrl = URL.createObjectURL(file);
       onImageUploaded(imageUrl, analysis);
@@ -77,10 +76,10 @@ const UploadForm: React.FC<UploadFormProps> = ({ onImageUploaded, onBack }) => {
   if (isAnalyzing) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-2xl">
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center border border-gray-200 dark:border-gray-700">
           <div className="animate-spin w-16 h-16 border-4 border-green-200 border-t-green-600 rounded-full mx-auto mb-6"></div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Analisando seu solo...</h2>
-          <p className="text-gray-600">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Analisando seu solo...</h2>
+          <p className="text-gray-600 dark:text-gray-300">
             Nossa IA está processando a imagem e identificando as características do solo. Isso pode levar alguns segundos.
           </p>
         </div>
@@ -94,54 +93,54 @@ const UploadForm: React.FC<UploadFormProps> = ({ onImageUploaded, onBack }) => {
       <div className="flex items-center mb-8">
         <button
           onClick={onBack}
-          className="flex items-center text-gray-600 hover:text-gray-800 transition-colors mr-4"
+          className="flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors mr-4"
         >
           <ArrowLeft className="w-5 h-5 mr-1" />
           Voltar
         </button>
-        <h1 className="text-3xl font-bold text-gray-800">Enviar Imagem do Solo</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Enviar Imagem do Solo</h1>
       </div>
 
       {/* Instructions */}
-      <div className="bg-blue-50 rounded-xl p-6 mb-8">
-        <h3 className="text-lg font-semibold text-blue-800 mb-3">Dicas para melhor análise:</h3>
-        <ul className="text-blue-700 space-y-2">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-lg border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Dicas para melhor análise:</h3>
+        <ul className="text-gray-700 dark:text-gray-300 space-y-2">
           <li className="flex items-start">
-            <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
             Tire a foto em boa iluminação natural
           </li>
           <li className="flex items-start">
-            <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
             Remova folhas, pedras ou outros detritos
           </li>
           <li className="flex items-start">
-            <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
             Fotografe uma área representativa do solo
           </li>
           <li className="flex items-start">
-            <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
             Use formatos JPG ou PNG (máximo 10MB)
           </li>
         </ul>
       </div>
 
       {/* Upload Area */}
-      <div className="bg-white rounded-2xl shadow-lg p-8">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
         <div
           className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
             isDragging
-              ? 'border-green-500 bg-green-50'
-              : 'border-gray-300 hover:border-green-400 hover:bg-green-50'
+              ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
+              : 'border-gray-300 dark:border-gray-600 hover:border-green-400 dark:hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/10'
           }`}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          <Image className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+          <Image className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
             Arraste sua imagem aqui
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             ou clique no botão abaixo para selecionar
           </p>
 
@@ -163,9 +162,9 @@ const UploadForm: React.FC<UploadFormProps> = ({ onImageUploaded, onBack }) => {
         </div>
 
         {error && (
-          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
-            <AlertCircle className="w-5 h-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
-            <p className="text-red-700">{error}</p>
+          <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start">
+            <AlertCircle className="w-5 h-5 text-red-500 dark:text-red-400 mr-3 mt-0.5 flex-shrink-0" />
+            <p className="text-red-700 dark:text-red-300">{error}</p>
           </div>
         )}
       </div>
